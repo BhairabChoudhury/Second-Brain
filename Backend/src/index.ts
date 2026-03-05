@@ -14,7 +14,7 @@ app.use(express.json());
 //@ts-ignore
 app.use(
   cors({
-    origin: "http://localhost:5175", // ✅ no slash at the end
+    origin: "http://localhost:5173", // ✅ no slash at the end
   })
 );
  mongoose.connect("mongodb+srv://Rocky:8101866244@cluster0.ey9q8vn.mongodb.net/Brainly-Project" )

@@ -62,3 +62,11 @@ interface Cardprops {
    )
 }
 
+/*
+ {type === "twitter" && link && (
+    <blockquote className="twitter-tweet">
+      <a href={link.replace("x.com", "twitter.com")}></a>
+    </blockquote>
+  )}
+
+*/
