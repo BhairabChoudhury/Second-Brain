@@ -31,7 +31,7 @@ app.post("/api/v1/signup", async (req :Request,res:Response)=>{
  const process = requiredBody.safeParse(req.body) ;
  if(!process.success){
      res.json({
-       message :" Incorect  Formate " 
+       message :" Incorect  Form" 
      })
      return ; 
  }
