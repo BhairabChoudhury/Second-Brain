@@ -9,6 +9,11 @@ connectDB() ;
 console.log("App is running") ; 
 app.use("/api/v1/",authroutes) ; 
 
+const PORT = process.env.PORT || 8000 ; 
+app.listen(PORT,()=>{
+     console.log(`Server is running on port ${PORT}`) ; 
+})
+
 
 
 
