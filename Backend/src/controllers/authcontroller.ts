@@ -28,7 +28,7 @@ export const signup = async (req : Request , res : Response ) =>{
    console.log(err) ; 
    return res.status(400).json({"message" : "Internal Server Error "}) ;   
       
-    }
+}
     
 } 
 export const signin = async (req : Request , res :  Response ) =>{
