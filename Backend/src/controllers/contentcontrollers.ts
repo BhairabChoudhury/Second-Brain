@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
-//import * as contentService from "../services/content.service";
+import * as contentService from "../Services/contentservices";
 
 // ➕ Create Content
 export const createContent = async (req: Request, res: Response) => {
   try {
     const { title, type, content, url } = req.body;
 
-    const file = (req as any).file; // for pdf/image
+    const file = (req as any).file; // for pdf/image which handel by multer middleware 
 
     const newContent = await contentService.createContent({
       title,
       type,
       content,
       url,
-      file,
+      file,// infomation of file  
       userId: (req as any).user?.id // from auth middleware
     });
 
@@ -53,11 +53,11 @@ export const deleteContent = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    await contentService.deleteContent(id);
+    await contentService.deleteContent(id as string); //   
 
     res.status(200).json({
       success: true,
-      message: "Content deleted"
+      message: "Content deleted successfully"
     });
   } catch (error: any) {
     res.status(500).json({

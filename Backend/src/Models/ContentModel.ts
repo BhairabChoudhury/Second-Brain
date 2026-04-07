@@ -3,7 +3,6 @@ import mongoose , { Schema , Document}from "mongoose";
 export interface IContent extends Document{
     title:string ;
     type : "note" | "link" | "pdf" | "image" ;
-    content?:string ;
     url?:string ;
     fileUrl?:string ; 
     extractedText?:string ;  
@@ -14,11 +13,10 @@ export interface IContent extends Document{
 const ContentSchema = new Schema<IContent>({
   title :{ type :String , required:true} ,
   type :{ type :String , enum:["note","link","pdf","image"] , required:true} ,
-  content :{ type :String  } ,
-  url :{ type :String  } ,
+  url:{ type :String  } ,
   fileUrl :{ type :String  } ,
   extractedText :{ type :String  } , 
-  userId :{ type :mongoose.Schema.Types.ObjectId , ref:"User" , required:true} 
+  userId :{ type:mongoose.Schema.Types.ObjectId , ref:"User" , required:true} 
 }, {
     timestamps: true
 })
