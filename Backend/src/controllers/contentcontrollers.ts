@@ -14,7 +14,7 @@ export const createContent = async (req: Request, res: Response) => {
       content,
       url,
       file,// infomation of file  
-      userId: (req as any).user?.id // from auth middleware
+      userId: (req as any).userId // from auth middleware
     });
 
     res.status(201).json({
@@ -32,7 +32,7 @@ export const createContent = async (req: Request, res: Response) => {
 // 🔍 Get All Content
 export const getAllContent = async (req: Request, res: Response) => {
   try {
-    const userId = (req as any).user?.id;
+    const userId = (req as any).userId;
 
     const contents = await contentService.getAllContent(userId);
 
