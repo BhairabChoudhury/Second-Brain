@@ -6,5 +6,5 @@ const router = express.Router() ;
 
 router.post("/create" , upload.single("file") , UserMiddleware , ) ; 
 router.get("/get", UserMiddleware ) ;
-
+router.delete("/delete/:id", UserMiddleware ) ;
 export default router ;  
