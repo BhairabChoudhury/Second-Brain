@@ -2,13 +2,13 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 
-// 📁  Ensure uploads folder exists
+//   Ensure uploads folder exists
 const uploadDir = "uploads";
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
 
-// 🗂 Storage config
+//  Storage config
 const storage = multer.diskStorage({ // store in disk Storage 
   destination: (req, file, cb) => {
     cb(null, uploadDir);
@@ -21,7 +21,7 @@ const storage = multer.diskStorage({ // store in disk Storage
   }
 });
 
-// 🔍 File filter (PDF + Image only)
+//  File filter (PDF + Image only)
 const fileFilter: multer.Options["fileFilter"] = (req, file, cb) => {
   const allowedTypes = [
     "application/pdf",
@@ -37,7 +37,7 @@ const fileFilter: multer.Options["fileFilter"] = (req, file, cb) => {
   }
 };
 
-// 🚀 Multer instance
+//  Multer instance
 export const upload = multer({
   storage,
   fileFilter,

@@ -3,7 +3,7 @@ import ContentModel from "../Models/ContentModel";
 import { extractTextFromPDF } from "../utils/pdf";
 import { extractTextFromImage } from "../utils/orc";
 
-// 🔵 Mock Chroma function (you will replace later)
+//  Mock Chroma function (you will replace later)
 const addToVectorDB = async (text: string, contentId: string) => {
   // send text + id to Chroma
   console.log("Embedding stored for:", contentId);
@@ -18,14 +18,14 @@ interface CreateContentInput { // model of data which i recive from controller
   userId: string;
 }
 
-// ➕ CREATE CONTENT
+//  CREATE CONTENT
 export const createContent = async (data: CreateContentInput) => {
   const { title, type, content, url, file, userId } = data;
 
   let fileUrl = "";
   let extractedText = "";
   let URL = "" ; 
-  // 🧠 TYPE HANDLING
+  //  TYPE HANDLING
   if (type === "note" ) {
     if (!content) throw new Error("Content required for note");
     extractedText = content;
@@ -62,7 +62,7 @@ export const createContent = async (data: CreateContentInput) => {
     throw new Error("Invalid content type");
   }
 
-  // 🗄️ Save in MongoDB
+  //  Save in MongoDB
   const newContent = await ContentModel.create({
     title,
     type,
@@ -72,7 +72,7 @@ export const createContent = async (data: CreateContentInput) => {
     userId
   });
 
-  // 🤖 Send to Vector DB (Chroma)
+  // Send to Vector DB (Chroma)
   if (extractedText) {
     await addToVectorDB(extractedText, String(newContent._id)); //  send  text and id  of contend to vector db  
   }
@@ -80,12 +80,12 @@ export const createContent = async (data: CreateContentInput) => {
   return newContent;
 };
 
-// 🔍 GET ALL CONTENT
+//  GET ALL CONTENT
 export const getAllContent = async (userId: string) => {
   return await ContentModel.find({ userId }).sort({ createdAt: -1 });
 };
 
-// ❌ DELETE CONTENT
+// DELETE CONTENT
 export const deleteContent = async (id: string) => {
   return await ContentModel.findByIdAndDelete(id);
 };

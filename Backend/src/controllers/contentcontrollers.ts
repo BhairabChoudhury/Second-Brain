@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import * as contentService from "../Services/contentservices";
 
-// ➕ Create Content
+//  Create Content
 export const createContent = async (req: Request, res: Response) => {
   try {
     const { title, type, content, url } = req.body;
@@ -29,7 +29,7 @@ export const createContent = async (req: Request, res: Response) => {
   }
 };
 
-// 🔍 Get All Content
+// Get All Content
 export const getAllContent = async (req: Request, res: Response) => {
   try {
     const userId = (req as any).userId;
@@ -48,7 +48,7 @@ export const getAllContent = async (req: Request, res: Response) => {
   }
 };
 
-// ❌ Delete Content
+//  Delete Content
 export const deleteContent = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
