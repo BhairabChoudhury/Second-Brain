@@ -2,10 +2,12 @@ import ContentModel from "../Models/ContentModel";
 // Assume you have some file upload + text extraction utils
 import { extractTextFromPDF } from "../utils/pdf";
 import { extractTextFromImage } from "../utils/orc";
+import { storeEmbedding } from "./StoreEm"; 
 
 //  Mock Chroma function (you will replace later)
 const addToVectorDB = async (text: string, contentId: string) => {
   // send text + id to Chroma
+  await storeEmbedding(contentId, text) ;
   console.log("Embedding stored for:", contentId);
 };
 
@@ -74,7 +76,7 @@ export const createContent = async (data: CreateContentInput) => {
 
   // Send to Vector DB (Chroma)
   if (extractedText) {
-    await addToVectorDB(extractedText, String(newContent._id)); //  send  text and id  of contend to vector db  
+    await addToVectorDB(extractedText, String(newContent._id)); //  send  text and id  of contend to vector db  (converts MongoDB ObjectId → string)
   }
 
   return newContent;

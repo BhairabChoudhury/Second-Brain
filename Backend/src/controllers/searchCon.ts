@@ -11,7 +11,7 @@ export const searchContent = async ( req: Request , res : Response) =>{
       if( !query ) {
          return res.status(400).json({message : " Query Required"}) ; 
       }
- 
+     console.log(query) ;
     //  1. Vector Search
     const contentIds = await searchEmbedding(query);
 
@@ -26,7 +26,7 @@ export const searchContent = async ( req: Request , res : Response) =>{
 
     //  4. Generate AI answer
     const answer = await generateAnswer(context, query);
-
+     console.log(answer) ;
     res.json({
       answer,
       contents, 

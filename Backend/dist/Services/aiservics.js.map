@@ -1,0 +1,1 @@
+{"version":3,"file":"aiservics.js","sourceRoot":"","sources":["../../src/Services/aiservics.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,uCAAuC;AAEvC,MAAM,MAAM,GAAG,IAAI,uBAAY,EAAE,CAAE;AAEnC,MAAM,eAAe,GAAG,cAAc,CAAE;AAEjC,MAAM,UAAU,GAAG,GAAS,EAAE;IACjC,OAAO,MAAM,MAAM,CAAC,qBAAqB,CAAC,EAAE,IAAI,EAAE,eAAe,EAAE,CAAC,CAAC;AACzE,CAAC,CAAA,CAAA;AAFY,QAAA,UAAU,cAEtB"}

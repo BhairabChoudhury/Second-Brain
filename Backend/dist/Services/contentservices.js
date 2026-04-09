@@ -17,18 +17,20 @@ const ContentModel_1 = __importDefault(require("../Models/ContentModel"));
 // Assume you have some file upload + text extraction utils
 const pdf_1 = require("../utils/pdf");
 const orc_1 = require("../utils/orc");
-// 🔵 Mock Chroma function (you will replace later)
+const StoreEm_1 = require("./StoreEm");
+//  Mock Chroma function (you will replace later)
 const addToVectorDB = (text, contentId) => __awaiter(void 0, void 0, void 0, function* () {
     // send text + id to Chroma
+    yield (0, StoreEm_1.storeEmbedding)(contentId, text);
     console.log("Embedding stored for:", contentId);
 });
-// ➕ CREATE CONTENT
+//  CREATE CONTENT
 const createContent = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, type, content, url, file, userId } = data;
     let fileUrl = "";
     let extractedText = "";
     let URL = "";
-    // 🧠 TYPE HANDLING
+    //  TYPE HANDLING
     if (type === "note") {
         if (!content)
             throw new Error("Content required for note");
@@ -60,7 +62,7 @@ const createContent = (data) => __awaiter(void 0, void 0, void 0, function* () {
     else {
         throw new Error("Invalid content type");
     }
-    // 🗄️ Save in MongoDB
+    //  Save in MongoDB
     const newContent = yield ContentModel_1.default.create({
         title,
         type,
@@ -69,19 +71,19 @@ const createContent = (data) => __awaiter(void 0, void 0, void 0, function* () {
         extractedText,
         userId
     });
-    // 🤖 Send to Vector DB (Chroma)
+    // Send to Vector DB (Chroma)
     if (extractedText) {
-        yield addToVectorDB(extractedText, String(newContent._id)); //  send  text and id  of contend to vector db  
+        yield addToVectorDB(extractedText, String(newContent._id)); //  send  text and id  of contend to vector db  (converts MongoDB ObjectId → string)
     }
     return newContent;
 });
 exports.createContent = createContent;
-// 🔍 GET ALL CONTENT
+//  GET ALL CONTENT
 const getAllContent = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     return yield ContentModel_1.default.find({ userId }).sort({ createdAt: -1 });
 });
 exports.getAllContent = getAllContent;
-// ❌ DELETE CONTENT
+// DELETE CONTENT
 const deleteContent = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return yield ContentModel_1.default.findByIdAndDelete(id);
 });

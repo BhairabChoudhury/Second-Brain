@@ -44,9 +44,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteContent = exports.getAllContent = exports.createContent = void 0;
 const contentService = __importStar(require("../Services/contentservices"));
-// ➕ Create Content
+//  Create Content
 const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     try {
         const { title, type, content, url } = req.body;
         const file = req.file; // for pdf/image which handel by multer middleware 
@@ -56,7 +55,7 @@ const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             content,
             url,
             file, // infomation of file  
-            userId: (_a = req.user) === null || _a === void 0 ? void 0 : _a.id // from auth middleware
+            userId: req.userId // from auth middleware
         });
         res.status(201).json({
             success: true,
@@ -71,11 +70,10 @@ const createContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.createContent = createContent;
-// 🔍 Get All Content
+// Get All Content
 const getAllContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     try {
-        const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
+        const userId = req.userId;
         const contents = yield contentService.getAllContent(userId);
         res.status(200).json({
             success: true,
@@ -90,7 +88,7 @@ const getAllContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.getAllContent = getAllContent;
-// ❌ Delete Content
+//  Delete Content
 const deleteContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
