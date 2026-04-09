@@ -36,4 +36,5 @@ export const searchContent = async ( req: Request , res : Response) =>{
      } catch (err) {
          res.status(500).json({message : "Internal Server Error or Search fails "})  ;  
      }
+      
 }
