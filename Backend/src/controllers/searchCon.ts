@@ -1,7 +1,6 @@
 import { Request , Response } from "express";
 import { searchEmbedding  } from "../Ai/SearchEm";
 import ContentModel from "../Models/ContentModel" ; 
-import { AsyncLocalStorage } from "async_hooks";
 import { generateAnswer } from "../Ai/GenerateAnswer"; 
 
 export const searchContent = async ( req: Request , res : Response) =>{
@@ -11,14 +10,14 @@ export const searchContent = async ( req: Request , res : Response) =>{
       if( !query ) {
          return res.status(400).json({message : " Query Required"}) ; 
       }
-     console.log(query) ;
+    // console.log(query) ;
     //  1. Vector Search
     const contentIds = await searchEmbedding(query);
-
+    console.log(contentIds) ;
     // 2. Fetch from MongoDB
     const contents = await ContentModel.find({
       _id: { $in: contentIds },
-      userId: (req as any).user.id,
+      userId: (req as any).userId,
     });
 
     //  3. Combine context
@@ -26,7 +25,7 @@ export const searchContent = async ( req: Request , res : Response) =>{
 
     //  4. Generate AI answer
     const answer = await generateAnswer(context, query);
-     console.log(answer) ;
+    // console.log(answer) ;
     res.json({
       answer,
       contents, 
@@ -34,7 +33,9 @@ export const searchContent = async ( req: Request , res : Response) =>{
 
 
      } catch (err) {
-         res.status(500).json({message : "Internal Server Error or Search fails "})  ;  
+         console.error("Search Error Details:", err);
+         const errorMessage = err instanceof Error ? err.message : "Unknown error";
+         res.status(500).json({message : "Internal Server Error or Search fails", error: errorMessage})  ;  
      }
       
 }
