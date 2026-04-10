@@ -3,7 +3,6 @@ import UserModel from "../Models/UserModel" ;
 import bcrypt from "bcrypt" ; 
 import jwt from  "jsonwebtoken" ;  
 
-const JWT_TOKEN = process.env.JWT_TOKEN as string ; 
 
 export const signup = async (req : Request , res : Response ) =>{ 
   console.log("hi i am here ghgf ")
@@ -35,7 +34,7 @@ export const signin = async (req : Request , res :  Response ) =>{
     try {
       const {email , password} = req.body ; 
       if(!email || !password) {
-         res.status(400).json({"message" : " All fields required"} ) 
+         return res.status(400).json({"message" : " All fields required"} );
       }
        const user = await UserModel.findOne({ email });
     if (!user) {
@@ -49,7 +48,7 @@ export const signin = async (req : Request , res :  Response ) =>{
 
     const token = jwt.sign(
       { id: user._id },
-      JWT_TOKEN,
+      process.env.JWT_TOKEN as string,
       { expiresIn: "7d" }
     );
    

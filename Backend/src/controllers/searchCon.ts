@@ -27,8 +27,7 @@ export const searchContent = async ( req: Request , res : Response) =>{
     const answer = await generateAnswer(context, query);
     // console.log(answer) ;
     res.json({
-      answer,
-      contents, 
+      answer
     });
 
 

@@ -1,5 +1,7 @@
-import express from "express" 
-import mongoose from "mongoose" 
+import dotenv from "dotenv";
+dotenv.config({ path: ".ENV" });
+
+import express from "express"
 import connectDB from "./Config/db";
 import authroutes from "./routes/authroutes" ; 
 import contentroutes from "./routes/contentroutes" ; 

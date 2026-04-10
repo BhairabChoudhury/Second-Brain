@@ -19,3 +19,6 @@ export const  storeEmbedding = async (contentId : string , text:string ) =>{
   }
   
 } 
+/*
+docker run -p 8000:8000 -v ./chroma-db:/data chromadb/chroma
+*/
