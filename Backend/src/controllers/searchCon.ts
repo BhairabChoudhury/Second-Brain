@@ -18,6 +18,7 @@ export const searchContent = async ( req: Request , res : Response) =>{
     const contents = await ContentModel.find({
       _id: { $in: contentIds },
       userId: (req as any).userId,
+
     });
 
     //  3. Combine context
@@ -29,7 +30,6 @@ export const searchContent = async ( req: Request , res : Response) =>{
     res.json({
       answer
     });
-
 
      } catch (err) {
          console.error("Search Error Details:", err);
